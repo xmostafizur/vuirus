@@ -435,12 +435,12 @@
           let time = new Date();
           time.setMinutes(time.getMinutes() + (i + 1) * 5);
 
-          // Formatting time in 24-hour format
+          // Formatting time in 12-hour format
           signals.push({
             time: time.toLocaleString([], {
               hour: "2-digit",
               minute: "2-digit",
-              hour12: false,
+              hour12: true,
             }),
             asset,
             direction,
