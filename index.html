@@ -355,7 +355,7 @@
         <div>
           <label>
             <input type="checkbox" id="backtest-filter" /> Filter Backtested
-            Signals (90% accuracy)
+            Signals (99% accuracy)
           </label>
         </div>
         <button id="generate-signals">Generate Signals</button>
@@ -410,7 +410,7 @@
             document.getElementById("loader").style.display = "none";
             document.querySelector(".animation-message").style.display =
               "block";
-          }, 10000); // Loader display time is now 10 seconds
+          }, 3000); // Loader display time is now 3 seconds
         });
 
       function generateSignals() {
