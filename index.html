@@ -1,463 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Colour Tread Signal</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সময় শেষ</title>
     <style>
-      /* General Styles */
-      body {
-        font-family: "Roboto", sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f7fa;
-        color: #333;
-      }
-
-      h1 {
-        text-align: center;
-        color: #007bff;
-        font-size: 2.4rem;
-        margin-top: 40px;
-        font-weight: 700;
-      }
-
-      .container {
-        width: 90%;
-        max-width: 1200px;
-        margin: 40px auto;
-        padding: 40px;
-        background-color: #ffffff;
-        box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
-        border-radius: 12px;
-        display: none; /* Hidden initially */
-      }
-
-      .card {
-        background-color: #ffffff;
-        padding: 25px;
-        margin-top: 20px;
-        border-radius: 12px;
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease-in-out;
-      }
-
-      .card:hover {
-        box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.15);
-      }
-
-      .card select,
-      .card input,
-      .card button {
-        width: 100%; /* Ensures all input boxes take full width */
-        padding: 14px;
-        margin-top: 12px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        font-size: 1rem;
-        background-color: #f9f9f9;
-        color: #333;
-        box-sizing: border-box; /* Ensures padding and border are included in the width */
-      }
-
-      .card input {
-        max-width: 100%; /* Removes max-width restriction to ensure full width */
-      }
-
-      .card button {
-        background-color: #007bff;
-        color: white;
-        font-weight: 600;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-      }
-
-      .card button:hover {
-        background-color: #0056b3;
-        transform: translateY(-3px);
-      }
-
-      .section-title {
-        font-size: 1.6rem;
-        font-weight: 500;
-        margin-bottom: 10px;
-        color: #333;
-      }
-
-      .signal-list {
-        margin-top: 20px;
-        padding-left: 20px;
-      }
-
-      .signal-list li {
-        margin-bottom: 8px;
-        font-size: 1rem;
-        color: #555;
-      }
-
-      .signal-list li:nth-child(odd) {
-        background-color: #f9f9f9;
-        padding: 8px;
-        border-radius: 6px;
-      }
-
-      .signal-list li:nth-child(even) {
-        background-color: #eef2f7;
-        padding: 8px;
-        border-radius: 6px;
-      }
-
-      .animation-message {
-        display: none;
-        padding: 12px;
-        background-color: #28a745;
-        color: white;
-        border-radius: 8px;
-        font-weight: 600;
-        text-align: center;
-        margin-top: 20px;
-        animation: fadeOut 2s forwards;
-      }
-
-      @keyframes fadeOut {
-        0% {
-          opacity: 1;
-        }
-        80% {
-          opacity: 1;
-        }
-        100% {
-          opacity: 0;
-        }
-      }
-      /* Footer Styles */
-      footer {
-        background-color: #007bff;
-        color: white;
-        text-align: center;
-        padding: 20px;
-        margin-top: 40px;
-        border-top: 1px solid #ccc;
-        position: relative; /* Ensure footer is positioned normally */
-        bottom: 0;
-        width: 100%; /* Ensure the footer spans the width of the page */
-      }
-
-      footer a {
-        color: #fff;
-        text-decoration: none;
-        font-weight: 600;
-      }
-
-      footer a:hover {
-        text-decoration: underline;
-      }
-
-      .footer-text {
-        font-size: 1rem;
-        color: white;
-        font-weight: 400;
-      }
-
-      /* Loader styles */
-      .loader {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 9999;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .loader .spinner {
-        border: 8px solid #f3f3f3;
-        border-top: 8px solid #007bff;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        animation: spin 2s linear infinite;
-      }
-
-      .loader p {
-        margin-top: 15px;
-        color: white;
-        font-size: 1.2rem;
-        font-weight: bold;
-      }
-
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-      /* Login Page styles */
-      .login-container {
-        max-width: 400px;
-        margin: 100px auto;
-        padding: 30px;
-        background-color: #ffffff;
-        border-radius: 12px;
-        box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* This centers the form content horizontally */
-      }
-
-      .login-container h1 {
-        font-size: 2rem;
-        color: #007bff;
-        text-align: center;
-        margin-bottom: 20px;
-      }
-
-      .login-container input {
-        margin-top: 20px;
-        padding: 14px;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        font-size: 1rem;
-        width: 100%;
-        background-color: #f9f9f9;
-        color: #333;
-        box-sizing: border-box;
-      }
-
-      .login-container button {
-        margin-top: 20px;
-        padding: 14px;
-        background-color: #007bff;
-        color: white;
-        font-weight: 600;
-        border: none;
-        cursor: pointer;
-        border-radius: 8px;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-        width: 100%; /* Makes the button take full width of the container */
-      }
-
-      .login-container button:hover {
-        background-color: #0056b3;
-        transform: translateY(-3px);
-      }
-
-      /* Responsive Design for Mobile and Tablets */
-      @media (max-width: 768px) {
-        .container {
-          width: 95%;
-          padding: 20px;
+        /* বেসিক স্টাইল */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
 
-        h1 {
-          font-size: 2rem;
+        /* পুরো স্ক্রিন কভার করবে */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #111;
+            color: white;
+            overflow: hidden;
+            transition: background-color 2s ease-in-out;
         }
 
-        .card {
-          padding: 20px;
-          margin-top: 15px;
+        /* টাইমআউট বার্তা */
+        .timeout-message {
+            text-align: center;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: rgba(255, 0, 0, 0.85);
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+            opacity: 0;
+            transform: scale(0.5);
+            animation: fadeInScale 1.5s ease-out forwards;
         }
 
-        .card select,
-        .card input,
-        .card button {
-          font-size: 1rem;
+        .timeout-message h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
         }
 
-        .section-title {
-          font-size: 1.4rem;
-        }
-      }
-
-      /* More Responsive Design for Small Mobile Screens */
-      @media (max-width: 480px) {
-        h1 {
-          font-size: 1.8rem;
+        .timeout-message p {
+            font-size: 1.2rem;
         }
 
-        .container {
-          padding: 15px;
+        /* ফেড-ইন + স্কেল অ্যানিমেশন */
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
-        .card input,
-        .card select,
-        .card button {
-          padding: 12px;
+        /* লোডিং অ্যানিমেশন */
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #fff;
+            border-top: 5px solid red;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
         }
 
-        .section-title {
-          font-size: 1.3rem;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        .card {
-          padding: 15px;
+        /* যোগাযোগ তথ্য */
+        .contact-info {
+            margin-top: 20px;
+            text-align: center;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
 
-        /* Reduced shadow and margins for a cleaner look on very small screens */
-        .card {
-          box-shadow: none;
-          margin-top: 10px;
+        .contact-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
         }
-      }
+
+        .contact-info p {
+            font-size: 1.2rem;
+            margin: 5px 0;
+        }
+
+        .contact-info a {
+            color: #00afff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* ছোট ডিভাইসের জন্য */
+        @media (max-width: 600px) {
+            .timeout-message {
+                padding: 20px;
+            }
+            .timeout-message h1 {
+                font-size: 2rem;
+            }
+            .timeout-message p {
+                font-size: 1rem;
+            }
+            .contact-info {
+                padding: 10px;
+            }
+            .contact-info h2 {
+                font-size: 1.2rem;
+            }
+            .contact-info p {
+                font-size: 1rem;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <!-- Login Page -->
-    <div class="login-container" id="login-page">
-      <h1>BDT GAME HACK AI</h1>
-      <form id="login-form">
-        <input type="text" id="username" placeholder="Username" required />
-        <input type="password" id="password" placeholder="Password" required />
-        <button type="submit">Login</button>
-      </form>
+</head>
+<body>
+    <!-- টাইমআউট বার্তা -->
+    <div class="timeout-message">
+        <h1>⏳ সময় শেষ!</h1>
+        <p>দুঃখিত, আপনার ব্যবহারের সময় শেষ হয়ে গেছে।</p>
+        <div class="loader"></div>
     </div>
 
-    <!-- Loader -->
-    <div class="loader" id="loader">
-      <div class="spinner"></div>
-      <p>Generating Signals...</p>
+    <!-- যোগাযোগ তথ্য -->
+    <div class="contact-info">
+        <h2>📞 যোগাযোগ করুন</h2>
+        <p>📱 Telegram: <a href="https://t.me/xmostafizur" target="_blank">@x_mostafizur</a></p>
+        <p>📱 Telegram: <a href="https://t.me/forhad12478" target="_blank">@forhad12478</a></p>
+        <p>📞 নম্বর: <a href="tel:01405985541">01405985541</a></p>
     </div>
-
-    <!-- Main Page (Hidden Initially) -->
-    <div class="container" id="main-page">
-      <h1>REZA COLOUR TREADING BOT</h1>
-      <div class="card">
-        <h2 class="section-title">Generate Trading Signals</h2>
-        <div>
-          <label for="asset-select">Select Asset</label>
-          <select id="asset-select">
-            <option value="TRX WIN 1 MINUTE">TRX WIN 1 MINUTE</option>
-            <option value="WIN-GO 1 MINUTE">WIN-GO 1 MINUTE</option>
-          </select>
-        </div>
-        <div>
-          <label for="signal-count">Number of Signals</label>
-          <input type="number" id="signal-count" value="10" min="1" max="30" />
-        </div>
-        <div>
-          <label for="filter-select">Signal Type</label>
-          <select id="filter-select">
-            <option value="ALL">All</option>
-            <option value="CALL">SMALL</option>
-            <option value="PUT">BIG</option>
-          </select>
-        </div>
-        <div>
-          <label>
-            <input type="checkbox" id="backtest-filter" /> Filter Backtested
-            Signals (99% accuracy)
-          </label>
-        </div>
-        <button id="generate-signals">Generate Signals</button>
-      </div>
-
-      <div class="signal-list" id="signal-list"></div>
-      <div class="animation-message">Signals generated successfully!</div>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-      <p class="footer-text">
-        &copy; 2025 COLOUR TREAD BOT |
-        <a href="https://t.me/bdtgamef" target="_blank"
-          >Join Our Telegram</a
-        >
-      </p>
-    </footer>
 
     <script>
-      document
-        .getElementById("login-form")
-        .addEventListener("submit", function (event) {
-          event.preventDefault();
-
-          // Simple login validation (this can be expanded as needed)
-          var username = document.getElementById("username").value;
-          var password = document.getElementById("password").value;
-
-          if (username === "REZA" && password === "REZA2025") {
-            // Show main page and hide login page
-            document.getElementById("login-page").style.display = "none";
-            document.getElementById("main-page").style.display = "block";
-          } else {
-            alert("Invalid username or password");
-          }
-        });
-
-      document
-        .getElementById("generate-signals")
-        .addEventListener("click", function () {
-          // Show the loader
-          document.getElementById("loader").style.display = "flex";
-
-          // Hide the previous messages and clear the signal list
-          document.querySelector(".animation-message").style.display = "none";
-          document.getElementById("signal-list").innerHTML = "";
-
-          setTimeout(function () {
-            generateSignals();
-            // Hide the loader after signals are generated
-            document.getElementById("loader").style.display = "none";
-            document.querySelector(".animation-message").style.display =
-              "block";
-          }, 3000); // Loader display time is now 3 seconds
-        });
-
-      function generateSignals() {
-        const asset = document.getElementById("asset-select").value;
-        const signalCount = document.getElementById("signal-count").value;
-        const filter = document.getElementById("filter-select").value;
-        const backtestFilter =
-          document.getElementById("backtest-filter").checked;
-
-        let signals = [];
-        for (let i = 0; i < signalCount; i++) {
-          let direction = Math.random() > 0.5 ? "SMALL" : "BIG";
-          if (filter !== "ALL" && filter !== direction) {
-            continue;
-          }
-
-          // Simulate backtest accuracy if filter is active
-          if (backtestFilter && Math.random() > 0.95) {
-            continue;
-          }
-
-          let time = new Date();
-          time.setMinutes(time.getMinutes() + (i + 1) * 5);
-
-          // Formatting time in 12-hour format
-          signals.push({
-            time: time.toLocaleString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: true,
-            }),
-            asset,
-            direction,
-          });
-        }
-
-        displaySignals(signals);
-      }
-
-      function displaySignals(signals) {
-        const signalList = document.getElementById("signal-list");
-        signals.forEach((signal) => {
-          const listItem = document.createElement("li");
-          listItem.textContent = `${signal.time} - ${signal.asset} - ${signal.direction}`;
-          signalList.appendChild(listItem);
-        });
-      }
+        // ৫ সেকেন্ড পর ব্যাকগ্রাউন্ড আরও গাঢ় লাল হবে
+        setTimeout(() => {
+            document.body.style.backgroundColor = "#800000";
+        }, 5000);
     </script>
-  </body>
+</body>
 </html>
